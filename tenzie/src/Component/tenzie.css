@@ -1,0 +1,56 @@
+.tenzie-body{
+    width: 320px;
+    height: 320px;
+    border-radius: 10px;
+    background-color: rgba(245, 245, 245, 1);
+    text-align: center;
+    padding: 10px 1rem ;
+    margin: 0 auto;
+    margin-top: 10px;
+}
+
+.tenzie-title{
+    font-size: 1.5rem;
+    font-weight: 700;
+    color:rgba(43, 40, 58, 1);
+}
+
+.tenzie-description{
+    color: rgba(74, 78, 116, 1);
+    font-size: 13.11px;
+    margin: 0 40px;
+}
+
+.tenzie-dice{
+    width: 35.84px;
+    height: 35.84x;
+    border-radius: 3.81px;
+    background-color: white;
+    font-weight: 700;
+    font-size: 20.59px;
+    margin-top: 20px;
+    padding: 2px;
+}
+
+.tenzie-dice:hover{
+    background-color: rgba(89, 227, 145, 1);
+}
+
+.tenzie-button{
+    background-color: rgba(80, 53, 255, 1);
+    border-radius: 3.81px;
+    width: 92.16px;
+    height: 35.84px;
+    box-shadow: 0px 3.2px 7.68px rgba(0, 0, 0, 0.18);
+    color: rgba(255, 255, 255, 1);
+    font-weight: 700;
+    font-size: 16.38px;
+    border: none;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.dice-section{
+    display: grid;
+    grid-template-columns: auto auto auto auto auto;
+}
