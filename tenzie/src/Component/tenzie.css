@@ -32,8 +32,15 @@
     padding: 2px;
 }
 
-.tenzie-dice:hover{
+.tenzie-dices{
     background-color: rgba(89, 227, 145, 1);
+    width: 35.84px;
+    height: 35.84x;
+    border-radius: 3.81px;
+    font-weight: 700;
+    font-size: 20.59px;
+    margin-top: 20px;
+    padding: 2px;
 }
 
 .tenzie-button{
