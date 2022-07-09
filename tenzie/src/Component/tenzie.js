@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import './tenzie.css'
 import Die from "./die";
 import {nanoid} from 'nanoid'
+import Confetti from 'react-confetti'
 
 export default function TenzieComponent(){
 //This is a state change in which the function generating the random numbers is passed into it such that upon reload we generate random numbers
     const [diceNumbers, setDiceNumber] = useState(allNewDice());
+    const [tenzies, setTenzies] = useState(false)
 //This function randomly generates the numbers ten times and the push an object into the array, the object contains the random number, Id  and isHeld to know if the number has be taken
     function allNewDice(){
         const tenRandomNumbers = []
@@ -36,22 +38,37 @@ export default function TenzieComponent(){
         holdDice = {()=>holdDice(die.id)}// this generate a unique Id 
         />
     )
-      // this is an event listener used on the roll button that generate random numbers once the button is clicked
+      // this is an event listener used on the roll button that 
     function rollDice(){
-        setDiceNumber(prevDiceNumbers => prevDiceNumbers.map(die =>{
-            return die.isHeld ?  die : 
-            {value:Math.ceil(Math.random()*6),
-            isHeld:false,
-            id:nanoid()}
-        }))
+        if (tenzies) { //This condition specifies a new game once tenzies is true
+            setTenzies(false)
+            setDiceNumber(allNewDice)
+        } else {
+            setDiceNumber(prevDiceNumbers => prevDiceNumbers.map(die =>{ //generates other random numbers once the button is clicked if the numbers are not yet held
+                return die.isHeld ?  die : 
+                {value:Math.ceil(Math.random()*6),
+                isHeld:false,
+                id:nanoid()}
+            }))
+            
+        }
+
+       
     }
+ // This effect is used to end the game i.e check if the dice is held and if the each dice value is equals to the first value saved in the array
+    useEffect(()=>{
+        const checkTenzie = diceNumbers.every(dice=> dice.isHeld)
+        const checkForSameValue = diceNumbers.every(dice => dice.value === diceNumbers[0].value)
+        checkTenzie && checkForSameValue ? setTenzies(true) : setTenzies(false);
+    },[diceNumbers])
 
     return(
         <div className="tenzie-body">
+            {tenzies && <Confetti />}
             <h1 className="tenzie-title">Tenzies</h1>
             <p className="tenzie-description">Roll until all dice are the same. Click each die to freeze it at its current value between rolls.</p>
             <div className="dice-section">{differentDieNumber}</div>
-            <button className="tenzie-button" onClick={rollDice}>Roll</button>
+            <button className={tenzies?"tenzie-buttons":"tenzie-button"} onClick={rollDice}>{tenzies?"New Game":"Roll"}</button>
         </div>
     )
 }
