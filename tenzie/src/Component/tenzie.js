@@ -18,12 +18,14 @@ export default function TenzieComponent(){
         }
         return tenRandomNumbers
     }
-    //this function gets the particular div or number that is being click
+    //this function gets the particular div or number that is being click and change the state
     function holdDice(id){
-        setDiceNumber((prevDiceNumbers)=>{
-            prevDiceNumbers.map(flip=>({
-            }))
-        })
+        setDiceNumber(prevDiceNumbers => prevDiceNumbers.map(flip => {
+                return flip.id === id ? 
+                {...flip, isHeld : !flip.isHeld} : 
+                flip//This checks if the id being flipped is the same as the id that was passed if true it should update the  isHeld property object to its opposite if not it should return the parameter passed to the map
+            })
+        )
     }
     // we map over each object in the array and return a component in which props are passed such as value to be displayed,each id of each box and the isHeld function 
     const differentDieNumber = diceNumbers.map(die => 
@@ -36,7 +38,12 @@ export default function TenzieComponent(){
     )
       // this is an event listener used on the roll button that generate random numbers once the button is clicked
     function rollDice(){
-        setDiceNumber(allNewDice)
+        setDiceNumber(prevDiceNumbers => prevDiceNumbers.map(die =>{
+            return die.isHeld ?  die : 
+            {value:Math.ceil(Math.random()*6),
+            isHeld:false,
+            id:nanoid()}
+        }))
     }
 
     return(
